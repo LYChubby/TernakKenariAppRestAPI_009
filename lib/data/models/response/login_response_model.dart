@@ -3,9 +3,9 @@ import 'dart:convert';
 class LoginResponseModel {
   final String? message;
   final int? statusCode;
-  final Data? data;
+  final User? user;
 
-  LoginResponseModel({this.message, this.statusCode, this.data});
+  LoginResponseModel({this.message, this.statusCode, this.user});
 
   factory LoginResponseModel.fromJson(String str) =>
       LoginResponseModel.fromMap(json.decode(str));
@@ -16,30 +16,30 @@ class LoginResponseModel {
       LoginResponseModel(
         message: json["message"],
         statusCode: json["status_code"],
-        data: json["data"] == null ? null : Data.fromMap(json["data"]),
+        user: json["data"] == null ? null : User.fromMap(json["data"]),
       );
 
   Map<String, dynamic> toMap() => {
     "message": message,
     "status_code": statusCode,
-    "data": data?.toMap(),
+    "data": user?.toMap(),
   };
 }
 
-class Data {
+class User {
   final int? id;
   final String? name;
   final String? email;
   final String? role;
   final String? token;
 
-  Data({this.id, this.name, this.email, this.role, this.token});
+  User({this.id, this.name, this.email, this.role, this.token});
 
-  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+  factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Data.fromMap(Map<String, dynamic> json) => Data(
+  factory User.fromMap(Map<String, dynamic> json) => User(
     id: json["id"],
     name: json["name"],
     email: json["email"],
