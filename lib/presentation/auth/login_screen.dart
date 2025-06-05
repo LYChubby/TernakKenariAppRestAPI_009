@@ -1,6 +1,8 @@
 import 'package:canary_template/core/components/components.dart';
 import 'package:canary_template/core/components/spaces.dart';
 import 'package:canary_template/core/constants/colors.dart';
+import 'package:canary_template/data/models/request/auth/login_request_model.dart';
+import 'package:canary_template/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -82,6 +84,55 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                     },
                   ),
+                ),
+                const SpaceHeight(30),
+                BlocConsumer<LoginBloc, LoginState>(
+                  listener: (context, state) {
+                    if (state is LoginFailure) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(state.error)));
+                    } else if (state is LoginSuccess) {
+                      final role = state.responseModel.user?.role
+                          ?.toLowerCase();
+                      if (role == "admin") {
+                        context.pushAndRemoveUntil(
+                          const AdminConfirmScreen(),
+                          (route) => false,
+                        );
+                      } else if (role == "buyer") {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(state.responseModel.message!)),
+                        );
+                        context.pushAndRemoveUntil(
+                          const BuyerProfileScreen(),
+                          (route) => false,
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Role tidak dikenali")),
+                        );
+                      }
+                    }
+                  },
+                  builder: (context, state) {
+                    return Button.filled(
+                      onPressed: state is LoginLoading
+                          ? null
+                          : () {
+                              if (_key.currentState?.validate() ?? false) {
+                                final requestModel = LoginRequestModel(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                                context.read<LoginBloc>().add(
+                                  LoginRequested(requestModel: requestModel),
+                                );
+                              }
+                            },
+                      label: state is LoginLoading ? "Memuat..." : "Masuk",
+                    );
+                  },
                 ),
               ],
             ),
