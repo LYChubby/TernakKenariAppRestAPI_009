@@ -76,31 +76,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 const SpaceHeight(25),
-                CustomTextField(
-                  controller: passwordController,
-                  label: "Password",
-                  validator: "Password tidak boleh kosong",
-                  obscureText: !isShowPassword,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.lock),
-                  ),
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      icon: Icon(
-                        isShowPassword
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: AppColors.grey,
+                Row(
+                  spacing: 10,
+                  children: [
+                    Expanded(
+                      child: CustomTextField(
+                        controller: passwordController,
+                        label: "Password",
+                        validator: "Password tidak boleh kosong",
+                        obscureText: !isShowPassword,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.lock),
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            icon: Icon(
+                              isShowPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: AppColors.grey,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                isShowPassword = !isShowPassword;
+                              });
+                            },
+                          ),
+                        ),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          isShowPassword = !isShowPassword;
-                        });
-                      },
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
