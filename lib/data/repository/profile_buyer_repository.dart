@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:canary_template/data/models/request/buyer/buyer_profile_request_model.dart';
 import 'package:canary_template/data/models/response/buyer/buyer_profile_response_model.dart';
 import 'package:canary_template/services/service_http_client.dart';
 import 'package:dartz/dartz.dart';
@@ -9,12 +10,12 @@ class ProfileBuyerRepository {
   ProfileBuyerRepository(this._serviceHttpClient);
 
   Future<Either<String, BuyerProfileResponseModel>> addProfileBuyer(
-    BuyerProfileResponseModel requestModel,
+    BuyerProfileRequestModel requestModel,
   ) async {
     try {
       final response = await _serviceHttpClient.postWithToken(
         "buyer/profile",
-        requestModel.toJson(),
+        requestModel.toMap(),
       );
 
       if (response.statusCode == 201) {
