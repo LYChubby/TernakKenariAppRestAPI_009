@@ -5,6 +5,7 @@ import 'package:canary_template/core/core.dart';
 import 'package:canary_template/data/models/request/auth/register_request_model.dart';
 import 'package:canary_template/presentation/auth/bloc/register/register_bloc.dart';
 import 'package:canary_template/presentation/auth/login_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -156,6 +157,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       label: state is RegisterLoading ? "Memuat..." : "Daftar",
                     );
                   },
+                ),
+                Text.rich(
+                  TextSpan(
+                    text: "Sudah memiliki akun? Silahkan ",
+                    style: TextStyle(
+                      color: AppColors.grey,
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "Login Disini",
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            context.pushAndRemoveUntil(
+                              const LoginScreen(),
+                              (route) => false,
+                            );
+                          },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
