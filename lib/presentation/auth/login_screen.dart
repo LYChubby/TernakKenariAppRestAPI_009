@@ -101,10 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       final role = state.responseModel.user?.role
                           ?.toLowerCase();
                       if (role == "admin") {
-                        context.pushAndRemoveUntil(
-                          const AdminConfirmScreen(),
-                          (route) => false,
-                        );
+                        // context.pushAndRemoveUntil(
+                        //   const AdminConfirmScreen(),
+                        //   (route) => false,
+                        // );
                       } else if (role == "buyer") {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.responseModel.message!)),

@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class ServiceHttpClient {
   final String baseurl =
-      'http://10.0.0.2:8000/api/'; // Replace with your actual base URL
+      'http://10.0.2.2:8000/api/'; // Replace with your actual base URL
   final secureStorage = FlutterSecureStorage();
 
   // POST
@@ -32,7 +32,7 @@ class ServiceHttpClient {
     Map<String, dynamic> body,
   ) async {
     // Buat VAR Token Yang Baca Dari Secure Storage
-    final token = await secureStorage.read(key: 'token');
+    final token = await secureStorage.read(key: 'authToken');
     final url = Uri.parse('$baseurl$endpoint');
     try {
       final response = await http.post(
@@ -53,7 +53,7 @@ class ServiceHttpClient {
 
   // GET
   Future<http.Response> get(String endpoint) async {
-    final token = await secureStorage.read(key: 'token');
+    final token = await secureStorage.read(key: 'authToken');
     final url = Uri.parse('$baseurl$endpoint');
     try {
       final response = await http.get(

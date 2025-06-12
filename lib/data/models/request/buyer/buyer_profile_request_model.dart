@@ -11,7 +11,8 @@ class BuyerProfileRequestModel {
   factory BuyerProfileRequestModel.fromJson(String str) =>
       BuyerProfileRequestModel.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toRawJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => toMap();
 
   factory BuyerProfileRequestModel.fromMap(Map<String, dynamic> json) =>
       BuyerProfileRequestModel(

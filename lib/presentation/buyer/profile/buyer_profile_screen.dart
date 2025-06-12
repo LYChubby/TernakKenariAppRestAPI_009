@@ -28,7 +28,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
           if (state is ProfileBuyerAdded) {
             context.read<ProfileBuyerBloc>().add(GetProfileBuyerEvent());
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Profuil berhasil ditambahkan")),
+              SnackBar(content: Text("Profil berhasil ditambahkan")),
             );
           }
         },
